@@ -10,7 +10,6 @@ import com.voxloud.provisioning.repository.DeviceRepository;
 import com.voxloud.provisioning.util.Constants;
 import com.voxloud.provisioning.util.PropertyFileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
