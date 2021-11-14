@@ -38,17 +38,15 @@ public class ProvisioningServiceImpl implements ProvisioningService {
         }
 
         Map<String, Object> propertyMap = readPropertiesFile();
-        String response = Strings.EMPTY;
+        //@TODO factory pattern can be implemented in future
         if (Device.DeviceModel.CONFERENCE.equals(device.getModel())) {
-            response = processConferenceProps(device, propertyMap);
+            return processConferenceProps(device, propertyMap);
         } else if (Device.DeviceModel.DESK.equals(device.getModel())) {
-            response = processDeskProps(device, propertyMap);
+            return processDeskProps(device, propertyMap);
         } else {
             log.error("Device model not found");
             throw new ResourceNotFoundException("GET_PROVISIONING_FILE", "RSC101", "Device model not found");
         }
-        return Optional.ofNullable(response).filter(str -> str.length() != 0)
-                .map(str -> str.substring(0, str.length() - 1)).orElse(response);
     }
 
     private String processDeskProps(Device device, Map<String, Object> propertyMap) {
@@ -98,7 +96,9 @@ public class ProvisioningServiceImpl implements ProvisioningService {
                 responseBuilder.append(keyStr + Constants.KEY_VAL_SEPARATOR + value + Constants.PROP_FILE_LINE_SEPARATOR);
             }
         }
-        return responseBuilder.toString();
+        String response = responseBuilder.toString();
+        return Optional.ofNullable(response).filter(str -> str.length() != 0 && str.endsWith("\n"))
+                .map(str -> str.substring(0, str.length() - 1)).orElse(response);
     }
 
     private Map<String, Object> readPropertiesFile() throws ConversionException {
