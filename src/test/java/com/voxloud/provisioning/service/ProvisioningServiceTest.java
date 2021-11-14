@@ -55,7 +55,6 @@ public class ProvisioningServiceTest {
 
         String provisioningFile = provisioningService.getProvisioningFile(macAddress);
         Assert.assertNotNull(provisioningFile);
-        System.out.println(provisioningFile);
         String verificationPart = "\"username\":\"john\"";
         Assert.assertTrue(provisioningFile.contains(verificationPart));
     }
@@ -69,7 +68,6 @@ public class ProvisioningServiceTest {
         Mockito.when(deviceRepository.findByMacAddress(macAddress)).thenReturn(device);
         String provisioningFile = provisioningService.getProvisioningFile(macAddress);
         Assert.assertNotNull(provisioningFile);
-        System.out.println(provisioningFile);
         String verificationPort = "port=5161";
         Assert.assertTrue(provisioningFile.contains(verificationPort));
         String verificationDomain = "domain=sip.anotherdomain.com";
@@ -85,7 +83,6 @@ public class ProvisioningServiceTest {
         Mockito.when(deviceRepository.findByMacAddress(macAddress)).thenReturn(device);
         String provisioningFile = provisioningService.getProvisioningFile(macAddress);
         Assert.assertNotNull(provisioningFile);
-        System.out.println(provisioningFile);
         String verificationPort = "\"port\":\"5161\"";
         Assert.assertTrue(provisioningFile.contains(verificationPort));
         String verificationDomain = "\"domain\":\"sip.anotherdomain.com\"";
